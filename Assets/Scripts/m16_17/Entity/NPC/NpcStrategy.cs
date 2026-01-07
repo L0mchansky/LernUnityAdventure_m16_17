@@ -3,11 +3,22 @@ namespace m16_17
 {
     public class NpcStrategy : MonoBehaviour
     {
-        [SerializeField] EnumActionIdleState _enumIdle;
-        [SerializeField] EnumActionReactingState _enumReacting;
-
         [SerializeField] private DetectorCharacter _detectorCharacter;
         [SerializeField] private Npc _npc;
+
+        [SerializeField] private EnumActionIdleState _enumIdle;
+        [SerializeField] private EnumActionReactingState _enumReacting;
+
+        public EnumActionIdleState EnumIdle {
+            get { return _enumIdle; }
+            private set { _enumIdle = value; }
+        }
+
+        public EnumActionReactingState EnumReacting
+        {
+            get { return _enumReacting; }
+            private set { _enumReacting = value; }
+        }
 
         private bool IsWithin { get; set; }
 
@@ -15,6 +26,12 @@ namespace m16_17
 
         //[SerializeField] private Rotater _rotater;
         private IActionOnState ActionOnState { get; set; }
+
+        public void Initialize(EnumActionIdleState enumIdle, EnumActionReactingState enumReacting)
+        {
+            EnumIdle = enumIdle;
+            EnumReacting = enumReacting;
+        }
 
         private void Awake()
         {
@@ -75,9 +92,6 @@ namespace m16_17
                     case EnumActionIdleState.WalkingAction:
                         ActionOnState = new WalkingAction();
                         break;
-                    default:
-                        ActionOnState = new IdleAction();
-                        break;
                 }
             }
             else if (state == EnumState.Reacting)
@@ -92,9 +106,6 @@ namespace m16_17
                         break;
                     case EnumActionReactingState.BooAction:
                         ActionOnState = new BooAction();
-                        break;
-                    default:
-                        ActionOnState = new RunAction();
                         break;
                 }
             }
