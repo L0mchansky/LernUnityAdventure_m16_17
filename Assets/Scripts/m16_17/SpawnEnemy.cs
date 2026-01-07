@@ -11,8 +11,6 @@ namespace m16_17
 
         private float _shiftPosition = 0.5f;
 
-        private const string _nameStrategyObject = "NpcStrategy";
-
         void Start()
         {
             transform.position = new Vector3(transform.position.x, _shiftPosition, transform.position.z);
@@ -22,14 +20,11 @@ namespace m16_17
             _enumIdle = _enumIdle == 0 ? EnumActionIdleState.IdleAction : _enumIdle;
             _enumReacting = _enumReacting == 0 ? EnumActionReactingState.BooAction : _enumReacting;
 
-            Transform childTransform = enemy.transform.Find(_nameStrategyObject);
+            NpcStrategy npcStrategy = enemy.GetComponent<Npc>().NpcStrategy;
 
-            if (childTransform != null)
+            if (npcStrategy != null)
             {
-                if (childTransform.TryGetComponent<NpcStrategy>(out NpcStrategy npcStrategy))
-                {
-                    npcStrategy.Initialize(_enumIdle, _enumReacting);
-                }
+                npcStrategy.Initialize(_enumIdle, _enumReacting);
             }
         }
     }

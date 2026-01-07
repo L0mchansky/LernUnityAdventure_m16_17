@@ -2,6 +2,6 @@
 {
     public interface IActionOnState
     {
-        public void Action(EnumState state);
+        public void Action();
     }
 }

@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &383624191582210231
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2553864681416174401}
+  - component: {fileID: 2368706108583649868}
+  m_Layer: 0
+  m_Name: NpcController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2553864681416174401
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 383624191582210231}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5126062906288680944}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2368706108583649868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 383624191582210231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a75bf731b0f1f1d4880d10bf609ce6b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3385501607723816646
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,6 +196,7 @@ Transform:
   m_Children:
   - {fileID: 1678810329154976398}
   - {fileID: 7364729407983665145}
+  - {fileID: 2553864681416174401}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &364540161532159363
@@ -211,10 +256,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69d21aa87d912574e950173dfeb123d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _detectorCharacter: {fileID: 4549343475173586180}
+  _npcController: {fileID: 2368706108583649868}
   _enumIdle: 0
   _enumReacting: 0
-  _detectorCharacter: {fileID: 4549343475173586180}
-  _npc: {fileID: 364540161532159363}
 --- !u!114 &4549343475173586180
 MonoBehaviour:
   m_ObjectHideFlags: 0

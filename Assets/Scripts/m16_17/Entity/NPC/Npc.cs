@@ -4,26 +4,21 @@ namespace m16_17
 {
     public class Npc : MonoBehaviour
     {
-        public readonly float _speed = 5;
-        public readonly float _rotationSpeed = 300;
+        private const string _nameStrategyObject = "NpcStrategy";
 
-        private EnumState _state;
-
-        public EnumState State
-        {
-            get
-            {
-                return _state;
-            }
-            set
-            {
-                _state = value;
-            }
-        }
+        public NpcStrategy NpcStrategy { get; private set; }
 
         private void Awake()
         {
-            State = EnumState.Idle;
+            Transform childTransformStrategy = transform.Find(_nameStrategyObject);
+
+            if (childTransformStrategy != null)
+            {
+                if (childTransformStrategy.TryGetComponent<NpcStrategy>(out NpcStrategy npcStrategy))
+                {
+                    NpcStrategy = npcStrategy;
+                }
+            }
         }
     }
 }
