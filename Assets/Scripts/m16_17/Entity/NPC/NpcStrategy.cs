@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 namespace m16_17
 {
@@ -80,9 +82,17 @@ namespace m16_17
                     case EnumActionIdleState.IdleAction:
                         action = new IdleAction();
                         break;
+
                     case EnumActionIdleState.PatrolAction:
-                        action = new PatrolAction();
+                        if(TryGetComponent<IActionOnState>(out action))
+                        {
+                            break;
+                        }
+
+                        IPatrolAction patrolAction = createPatrolAction();
+                        action = patrolAction;
                         break;
+
                     case EnumActionIdleState.WalkingAction:
                         action = new WalkingAction();
                         break;
@@ -95,9 +105,11 @@ namespace m16_17
                     case EnumActionReactingState.RunAction:
                         action = new RunAction();
                         break;
+
                     case EnumActionReactingState.AgroAction:
                         action = new AgroAction();
                         break;
+
                     case EnumActionReactingState.BooAction:
                         action = new BooAction();
                         break;
@@ -108,6 +120,26 @@ namespace m16_17
             {
                 _npcController.ActionOnState = action;
             }
+        }
+
+        private IPatrolAction createPatrolAction()
+        {
+            IPatrolAction patrolAction = gameObject.AddComponent<PatrolAction>();
+
+            GameObject patrolPoints = GameObject.Find("PatrolPoints");
+            Transform[] allChildren = patrolPoints.GetComponentsInChildren<Transform>();
+
+            List<Transform> childTransforms = new List<Transform>();
+
+            foreach (Transform child in allChildren)
+            {
+                if (child != patrolPoints.transform) 
+                    childTransforms.Add(child);
+            }
+
+            patrolAction.InitializePatrol(childTransforms);
+
+            return patrolAction;
         }
     }
 }
