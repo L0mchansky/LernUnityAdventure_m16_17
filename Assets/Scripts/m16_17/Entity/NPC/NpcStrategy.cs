@@ -133,7 +133,17 @@ namespace m16_17
                         break;
 
                     case EnumActionReactingState.AgroAction:
-                        action = new AgroAction();
+
+                        if (TryGetComponent<AgroAction>(out AgroAction agroAction) == false)
+                        {
+                            action = gameObject.AddComponent<AgroAction>();
+                            action.Initialize(_detectorCharacter);
+                        }
+                        else
+                        {
+                            action = agroAction;
+                        }
+
                         break;
 
                     case EnumActionReactingState.BooAction:
