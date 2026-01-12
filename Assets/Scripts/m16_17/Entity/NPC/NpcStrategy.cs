@@ -103,8 +103,9 @@ namespace m16_17
 
                         if (TryGetComponent<WalkingAction>(out WalkingAction walkingAction) == false)
                         {
-                            action = gameObject.AddComponent<WalkingAction>();
-                            action.Initialize();
+                            WalkingAction newWalkingAction = gameObject.AddComponent<WalkingAction>();
+                            newWalkingAction.Initialize();
+                            action = newWalkingAction;
                         }
                         else
                         {
@@ -122,8 +123,9 @@ namespace m16_17
 
                         if (TryGetComponent<RunAction>(out RunAction runAction) == false)
                         {
-                            action = gameObject.AddComponent<RunAction>();
-                            action.Initialize(_detectorCharacter);
+                            RunAction newRunAction = gameObject.AddComponent<RunAction>();
+                            newRunAction.Initialize(_detectorCharacter);
+                            action = newRunAction;
                         }
                         else
                         {
@@ -136,8 +138,9 @@ namespace m16_17
 
                         if (TryGetComponent<AgroAction>(out AgroAction agroAction) == false)
                         {
-                            action = gameObject.AddComponent<AgroAction>();
-                            action.Initialize(_detectorCharacter);
+                            AgroAction newAgroAction = gameObject.AddComponent<AgroAction>();
+                            agroAction.Initialize(_detectorCharacter);
+                            action = newAgroAction;
                         }
                         else
                         {
@@ -150,8 +153,9 @@ namespace m16_17
 
                         if (TryGetComponent<BooAction>(out BooAction booAction) == false)
                         {
-                            action = gameObject.AddComponent<BooAction>();
-                            action.Initialize();
+                            BooAction newBooAction = gameObject.AddComponent<BooAction>();
+                            newBooAction.Initialize();
+                            action = newBooAction;
                         }
                         else
                         {
@@ -170,7 +174,7 @@ namespace m16_17
 
         private IActionOnState createPatrolAction()
         {
-            IActionOnState patrolAction = gameObject.AddComponent<PatrolAction>();
+            PatrolAction patrolAction = gameObject.AddComponent<PatrolAction>();
 
             GameObject patrolPoints = GameObject.Find(NAME_COLLETIONS_PATROL_POINTS);
             Transform[] allChildren = patrolPoints.GetComponentsInChildren<Transform>();

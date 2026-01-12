@@ -7,8 +7,5 @@ namespace m16_17
     public interface IActionOnState
     {
         public void Action();
-        public void Initialize() { }
-        public void Initialize(List<Transform> _) { }
-        public void Initialize(DetectorCharacter _) { }
     }
 }
