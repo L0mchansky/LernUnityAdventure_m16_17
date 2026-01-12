@@ -11,6 +11,8 @@ namespace m16_17
         [SerializeField] private EnumActionIdleState _enumIdle;
         [SerializeField] private EnumActionReactingState _enumReacting;
 
+        private const string NAME_COLLETIONS_PATROL_POINTS = "PatrolPoints";
+
         public EnumActionIdleState EnumIdle {
             get
             { 
@@ -126,7 +128,7 @@ namespace m16_17
         {
             IPatrolAction patrolAction = gameObject.AddComponent<PatrolAction>();
 
-            GameObject patrolPoints = GameObject.Find("PatrolPoints");
+            GameObject patrolPoints = GameObject.Find(NAME_COLLETIONS_PATROL_POINTS);
             Transform[] allChildren = patrolPoints.GetComponentsInChildren<Transform>();
 
             List<Transform> childTransforms = new List<Transform>();

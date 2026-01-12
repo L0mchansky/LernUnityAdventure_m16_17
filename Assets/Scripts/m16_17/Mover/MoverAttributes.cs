@@ -9,14 +9,26 @@ namespace m16_17
 
         public float MoveSpeed
         {
-            get { return _moveSpeed; }
-            private set { _moveSpeed = value; }
+            get 
+            {
+                return _moveSpeed;
+            }
+            private set
+            { 
+                _moveSpeed = value; 
+            }
         }
 
         public float RotationSpeed
         {
-            get { return _rotationSpeed; }
-            private set { _rotationSpeed = value; }
+            get 
+            {
+                return _rotationSpeed;
+            }
+            private set 
+            { 
+                _rotationSpeed = value; 
+            }
         }
     }
 }
