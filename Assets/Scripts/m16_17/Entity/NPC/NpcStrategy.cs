@@ -82,28 +82,35 @@ namespace m16_17
                 switch (_enumIdle)
                 {
                     case EnumActionIdleState.IdleAction:
+
                         action = new IdleAction();
                         break;
 
                     case EnumActionIdleState.PatrolAction:
-                        if(TryGetComponent<IActionOnState>(out action))
+
+                        if(TryGetComponent<PatrolAction>(out PatrolAction patrolAction) == false)
                         {
-                            break;
+                            action = createPatrolAction();
+                        }
+                        else
+                        {
+                            action = patrolAction;
                         }
 
-                        IActionOnState patrolAction = createPatrolAction();
-                        action = patrolAction;
                         break;
 
                     case EnumActionIdleState.WalkingAction:
-                        if (TryGetComponent<IActionOnState>(out action))
+
+                        if (TryGetComponent<WalkingAction>(out WalkingAction walkingAction) == false)
                         {
-                            break;
+                            action = gameObject.AddComponent<WalkingAction>();
+                            action.Initialize();
+                        }
+                        else
+                        {
+                            action = walkingAction;
                         }
 
-                        IActionOnState walkingAction = gameObject.AddComponent<WalkingAction>();
-                        walkingAction.Initialize();
-                        action = walkingAction;
                         break;
                 }
             }
@@ -112,7 +119,17 @@ namespace m16_17
                 switch (_enumReacting)
                 {
                     case EnumActionReactingState.RunAction:
-                        action = new RunAction();
+
+                        if (TryGetComponent<RunAction>(out RunAction runAction) == false)
+                        {
+                            action = gameObject.AddComponent<RunAction>();
+                            action.Initialize(_detectorCharacter);
+                        }
+                        else
+                        {
+                            action = runAction;
+                        }
+
                         break;
 
                     case EnumActionReactingState.AgroAction:

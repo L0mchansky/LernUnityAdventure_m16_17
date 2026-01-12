@@ -8,7 +8,7 @@ namespace m16_17
         private float _minDistanceForDetect = 10f;
 
         private DetectorDistance _detectorDistance;
-        private Character _character;
+        public Character _character { private set; get; }
 
         private void Awake()
         {

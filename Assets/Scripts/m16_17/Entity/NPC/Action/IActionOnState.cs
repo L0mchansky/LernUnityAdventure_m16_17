@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 namespace m16_17
 {
     public interface IActionOnState
     {
         public void Action();
-        public void Initialize() {}
-        public void Initialize(List<Transform> transforms) {}
+        public void Initialize() { }
+        public void Initialize(List<Transform> _) { }
+        public void Initialize(DetectorCharacter _) { }
     }
 }

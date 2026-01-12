@@ -6,7 +6,7 @@ namespace m16_17
     {
         public void Action()
         {
-            Debug.Log("Стоим пердим");
+            Debug.Log("Стоим");
         }
     }
 }
