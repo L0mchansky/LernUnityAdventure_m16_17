@@ -833,7 +833,7 @@ PrefabInstance:
     - target: {fileID: 3072115092834351059, guid: cac73f141e989624495eb2b8d5e3d909,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -13.28
       objectReference: {fileID: 0}
     - target: {fileID: 3072115092834351059, guid: cac73f141e989624495eb2b8d5e3d909,
         type: 3}
@@ -888,12 +888,12 @@ PrefabInstance:
     - target: {fileID: 6109312183395126561, guid: cac73f141e989624495eb2b8d5e3d909,
         type: 3}
       propertyPath: _enumIdle
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6109312183395126561, guid: cac73f141e989624495eb2b8d5e3d909,
         type: 3}
       propertyPath: _enumReacting
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

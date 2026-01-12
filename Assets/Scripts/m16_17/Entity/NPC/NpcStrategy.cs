@@ -147,7 +147,17 @@ namespace m16_17
                         break;
 
                     case EnumActionReactingState.BooAction:
-                        action = new BooAction();
+
+                        if (TryGetComponent<BooAction>(out BooAction booAction) == false)
+                        {
+                            action = gameObject.AddComponent<BooAction>();
+                            action.Initialize();
+                        }
+                        else
+                        {
+                            action = booAction;
+                        }
+
                         break;
                 }
             }
