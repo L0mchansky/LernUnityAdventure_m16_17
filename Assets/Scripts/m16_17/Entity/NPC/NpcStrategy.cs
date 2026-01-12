@@ -91,12 +91,19 @@ namespace m16_17
                             break;
                         }
 
-                        IPatrolAction patrolAction = createPatrolAction();
+                        IActionOnState patrolAction = createPatrolAction();
                         action = patrolAction;
                         break;
 
                     case EnumActionIdleState.WalkingAction:
-                        action = new WalkingAction();
+                        if (TryGetComponent<IActionOnState>(out action))
+                        {
+                            break;
+                        }
+
+                        IActionOnState walkingAction = gameObject.AddComponent<WalkingAction>();
+                        walkingAction.Initialize();
+                        action = walkingAction;
                         break;
                 }
             }
@@ -124,9 +131,9 @@ namespace m16_17
             }
         }
 
-        private IPatrolAction createPatrolAction()
+        private IActionOnState createPatrolAction()
         {
-            IPatrolAction patrolAction = gameObject.AddComponent<PatrolAction>();
+            IActionOnState patrolAction = gameObject.AddComponent<PatrolAction>();
 
             GameObject patrolPoints = GameObject.Find(NAME_COLLETIONS_PATROL_POINTS);
             Transform[] allChildren = patrolPoints.GetComponentsInChildren<Transform>();
@@ -139,7 +146,7 @@ namespace m16_17
                     childTransforms.Add(child);
             }
 
-            patrolAction.InitializePatrol(childTransforms);
+            patrolAction.Initialize(childTransforms);
 
             return patrolAction;
         }

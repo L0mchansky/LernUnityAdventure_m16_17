@@ -888,7 +888,7 @@ PrefabInstance:
     - target: {fileID: 6109312183395126561, guid: cac73f141e989624495eb2b8d5e3d909,
         type: 3}
       propertyPath: _enumIdle
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6109312183395126561, guid: cac73f141e989624495eb2b8d5e3d909,
         type: 3}

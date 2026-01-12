@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace m16_17
 {
-    public class PatrolAction : MonoBehaviour, IPatrolAction
+    public class PatrolAction : MonoBehaviour, IActionOnState
     {
         private IMover _mover;
         private Rotater _rotater;
@@ -17,7 +17,7 @@ namespace m16_17
         private Queue<Vector3> _targetPositions;
         private Vector3 _currentTarget;
 
-        public void InitializePatrol(List<Transform> patrolPoints)
+        public void Initialize(List<Transform> patrolPoints)
         {
             SetPatrolPoints(patrolPoints);
 
