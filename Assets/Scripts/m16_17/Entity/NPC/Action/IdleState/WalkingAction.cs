@@ -39,7 +39,8 @@ namespace m16_17
 
         private Vector3 GetRandomDirection()
         {
-            Vector3 newRandomDirection = new Vector3(
+            Vector3 newRandomDirection = new Vector3
+                (
                 Random.Range(-1f, 1f),
                 0f,
                 Random.Range(-1f, 1f)
