@@ -213,7 +213,7 @@ namespace m16_17
 
         private Mover CreateMover()
         {
-            Mover oldMover = _npc.GetComponent<Mover>();
+            Mover oldMover = _npc.GetComponentInChildren<Mover>();
 
             if (oldMover != null)
                 return oldMover;
