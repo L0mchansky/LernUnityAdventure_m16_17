@@ -1,32 +1,18 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.TextCore.Text;
+﻿using UnityEngine;
 
 namespace m16_17
 {
     public class RunAction : MonoBehaviour, IActionOnState
     {
-        private IMover _mover;
-        private Rotater _rotater;
-
-        private MoverAttributes _moverAttributes;
+        private Mover _mover;
 
         private DetectorCharacter _detectorCharacter;
         private Character _character;
 
-        public void Initialize(DetectorCharacter detectorCharacter)
+        public void Initialize(DetectorCharacter detectorCharacter, Mover mover)
         {
             _detectorCharacter = detectorCharacter;
-
-            GameObject _npc = gameObject.transform.parent.gameObject;
-
-            _rotater = _npc.GetComponent<Rotater>();
-            _moverAttributes = _npc.GetComponent<MoverAttributes>();
-
-            if (_npc.TryGetComponent<IMover>(out IMover mover))
-            {
-                _mover = mover;
-            }
+            _mover = mover;
         }
 
         public void Action()
@@ -39,7 +25,7 @@ namespace m16_17
             } 
             else
             {
-                _character = _detectorCharacter._character;
+                _character = _detectorCharacter.Character;
             }
         }
 
@@ -47,8 +33,8 @@ namespace m16_17
         {
             Vector3 normalizeDirection = GetRunDirection();
 
-            _mover.Move(normalizeDirection, _moverAttributes.MoveSpeed);
-            _rotater.Rotate(normalizeDirection, _moverAttributes.RotationSpeed, _moverAttributes.transform);
+            _mover.Move(normalizeDirection);
+            _mover.Rotate(normalizeDirection);
         }
 
         private Vector3 GetRunDirection()

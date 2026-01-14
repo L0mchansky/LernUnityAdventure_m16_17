@@ -11,7 +11,12 @@ namespace m16_17
         [SerializeField] private EnumActionIdleState _enumIdle;
         [SerializeField] private EnumActionReactingState _enumReacting;
 
+        [SerializeField] private Mover _moverPrefab;
+
+        private Npc _npc;
+
         private const string NAME_COLLETIONS_PATROL_POINTS = "PatrolPoints";
+        private const string NAME_PARTICLE_OBJECT = "NpcDeadParticle";
 
         public EnumActionIdleState EnumIdle {
             get
@@ -38,10 +43,13 @@ namespace m16_17
 
         private bool IsWithin { get; set; }
 
-        public void Initialize(EnumActionIdleState enumIdle, EnumActionReactingState enumReacting)
+        public void Initialize(EnumActionIdleState enumIdle, EnumActionReactingState enumReacting, Npc npc)
         {
             EnumIdle = enumIdle;
             EnumReacting = enumReacting;
+            _npc = npc;
+
+            SetAction(EnumState.Idle);
         }
 
         private void Awake()
@@ -51,6 +59,11 @@ namespace m16_17
 
         private void Update()
         {
+            ChangeActionOnState();
+        }
+
+        private void ChangeActionOnState()
+        {
             Character character = _detectorCharacter.Detect();
 
             if (character != null)
@@ -58,7 +71,7 @@ namespace m16_17
 
                 if (IsWithin == false)
                 {
-                    ChangeActionOnState(EnumState.Reacting);
+                    SetAction(EnumState.Reacting);
                     IsWithin = true;
                 }
             }
@@ -67,13 +80,13 @@ namespace m16_17
 
                 if (IsWithin)
                 {
-                    ChangeActionOnState(EnumState.Idle);
+                    SetAction(EnumState.Idle);
                     IsWithin = false;
                 }
             }
         }
 
-        private void ChangeActionOnState(EnumState state)
+        private void SetAction(EnumState state)
         {
             IActionOnState action = null;
 
@@ -103,8 +116,9 @@ namespace m16_17
 
                         if (TryGetComponent<WalkingAction>(out WalkingAction walkingAction) == false)
                         {
+                            Mover mover = CreateMover();
                             WalkingAction newWalkingAction = gameObject.AddComponent<WalkingAction>();
-                            newWalkingAction.Initialize();
+                            newWalkingAction.Initialize(mover);
                             action = newWalkingAction;
                         }
                         else
@@ -123,8 +137,9 @@ namespace m16_17
 
                         if (TryGetComponent<RunAction>(out RunAction runAction) == false)
                         {
+                            Mover mover = CreateMover();
                             RunAction newRunAction = gameObject.AddComponent<RunAction>();
-                            newRunAction.Initialize(_detectorCharacter);
+                            newRunAction.Initialize(_detectorCharacter, mover);
                             action = newRunAction;
                         }
                         else
@@ -138,8 +153,9 @@ namespace m16_17
 
                         if (TryGetComponent<AgroAction>(out AgroAction agroAction) == false)
                         {
+                            Mover mover = CreateMover();
                             AgroAction newAgroAction = gameObject.AddComponent<AgroAction>();
-                            agroAction.Initialize(_detectorCharacter);
+                            newAgroAction.Initialize(_detectorCharacter, mover);
                             action = newAgroAction;
                         }
                         else
@@ -154,7 +170,8 @@ namespace m16_17
                         if (TryGetComponent<BooAction>(out BooAction booAction) == false)
                         {
                             BooAction newBooAction = gameObject.AddComponent<BooAction>();
-                            newBooAction.Initialize();
+                            Transform particleSystemTransform = _npc.transform.Find(NAME_PARTICLE_OBJECT);
+                            newBooAction.Initialize(_npc, particleSystemTransform);
                             action = newBooAction;
                         }
                         else
@@ -174,6 +191,8 @@ namespace m16_17
 
         private IActionOnState createPatrolAction()
         {
+            Mover mover = CreateMover();
+
             PatrolAction patrolAction = gameObject.AddComponent<PatrolAction>();
 
             GameObject patrolPoints = GameObject.Find(NAME_COLLETIONS_PATROL_POINTS);
@@ -187,9 +206,30 @@ namespace m16_17
                     childTransforms.Add(child);
             }
 
-            patrolAction.Initialize(childTransforms);
+            patrolAction.Initialize(childTransforms, mover);
 
             return patrolAction;
+        }
+
+        private Mover CreateMover()
+        {
+            Mover oldMover = _npc.GetComponent<Mover>();
+
+            if (oldMover != null)
+                return oldMover;
+
+            Mover mover = Instantiate(_moverPrefab, transform.position, Quaternion.identity);
+
+            MoverTransform moverTransform = mover.AddComponent<MoverTransform>();
+            moverTransform.Initialize(_npc.transform);
+
+            Rotater rotater = mover.AddComponent<Rotater>();
+
+            mover.Initialize(moverTransform, rotater, _npc.transform);
+
+            mover.transform.SetParent(_npc.transform);
+
+            return mover;
         }
     }
 }

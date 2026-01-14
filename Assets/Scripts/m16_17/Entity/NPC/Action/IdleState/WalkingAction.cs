@@ -1,31 +1,18 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace m16_17
 {
     public class WalkingAction : MonoBehaviour, IActionOnState
     {
-        private IMover _mover;
-        private Rotater _rotater;
-
-        private MoverAttributes _moverAttributes;
+        private Mover _mover;
 
         private float _timer = 0f;
         private Vector3 _currentDirection;
 
-        public void Initialize()
+        public void Initialize(Mover mover)
         {
-            GameObject _npc = gameObject.transform.parent.gameObject;
-
-            _rotater = _npc.GetComponent<Rotater>();
-            _moverAttributes = _npc.GetComponent<MoverAttributes>();
-
-            if (_npc.TryGetComponent<IMover>(out IMover mover))
-            {
-                _mover = mover;
-            }
-
             _currentDirection = GetRandomDirection();
+            _mover = mover;
         }
 
         public void Action()
@@ -46,8 +33,8 @@ namespace m16_17
 
             Vector3 normalizeDirection = _currentDirection.normalized;
 
-            _mover.Move(normalizeDirection, _moverAttributes.MoveSpeed);
-            _rotater.Rotate(normalizeDirection, _moverAttributes.RotationSpeed, _moverAttributes.transform);
+            _mover.Move(normalizeDirection);
+            _mover.Rotate(normalizeDirection);
         }
 
         private Vector3 GetRandomDirection()

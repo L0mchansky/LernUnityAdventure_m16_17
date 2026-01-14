@@ -4,14 +4,13 @@ namespace m16_17
 {
     public class BooAction : MonoBehaviour, IActionOnState
     {
-        private const string NAME_PARTICLE_OBJECT = "NpcDeadParticle";
         private Transform _particleSystem;
+        private Npc _npc;
 
-        private GameObject _npc;
-        public void Initialize()
+        public void Initialize(Npc npc, Transform particleSystemTransform)
         {
-            _npc = gameObject.transform.parent.gameObject;
-            _particleSystem = _npc.transform.Find(NAME_PARTICLE_OBJECT);
+            _npc = npc;
+            _particleSystem = particleSystemTransform;
         }
 
         public void Action()
@@ -23,7 +22,7 @@ namespace m16_17
         public void Die()
         {
             PlayParticle(_npc.transform);
-            Destroy(_npc);
+            Destroy(_npc.gameObject);
         }
 
         public void PlayParticle(Transform npcTransform)

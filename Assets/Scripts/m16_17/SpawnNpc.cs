@@ -1,10 +1,11 @@
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 namespace m16_17
 {
-    public class SpawnEnemy : MonoBehaviour
+    public class SpawnNpc : MonoBehaviour
     {
-        [SerializeField] private GameObject _enemyPrefab;
+        [SerializeField] private GameObject _npcPrefab;
 
         [SerializeField] private EnumActionIdleState _enumIdle;
         [SerializeField] private EnumActionReactingState _enumReacting;
@@ -15,16 +16,17 @@ namespace m16_17
         {
             transform.position = new Vector3(transform.position.x, _shiftPosition, transform.position.z);
 
-            GameObject enemy = Instantiate(_enemyPrefab, transform.position, Quaternion.identity);
+            GameObject npcObject = Instantiate(_npcPrefab, transform.position, Quaternion.identity);
+            Npc npc = npcObject.GetComponent<Npc>();
 
             _enumIdle = _enumIdle == 0 ? EnumActionIdleState.IdleAction : _enumIdle;
             _enumReacting = _enumReacting == 0 ? EnumActionReactingState.BooAction : _enumReacting;
 
-            NpcStrategy npcStrategy = enemy.GetComponent<Npc>().NpcStrategy;
+            NpcStrategy npcStrategy = npc.GetComponent<Npc>().NpcStrategy;
 
             if (npcStrategy != null)
             {
-                npcStrategy.Initialize(_enumIdle, _enumReacting);
+                npcStrategy.Initialize(_enumIdle, _enumReacting, npc);
             }
         }
     }

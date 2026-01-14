@@ -56,7 +56,6 @@ GameObject:
   - component: {fileID: 8196314509022134793}
   - component: {fileID: 5491133387523793467}
   - component: {fileID: 673148822405480224}
-  - component: {fileID: 4174020482751077679}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -150,20 +149,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4174020482751077679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3385501607723816646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34c22e40de33a7a47b4fe3c0b369259b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _moveSpeed: 5
-  _rotationSpeed: 500
 --- !u!1 &5022709285978700416
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,9 +159,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5126062906288680944}
   - component: {fileID: 364540161532159363}
-  - component: {fileID: 3315549704299220956}
-  - component: {fileID: 86360050246504896}
-  - component: {fileID: 2493285270468198622}
   m_Layer: 0
   m_Name: Npc
   m_TagString: Untagged
@@ -215,44 +197,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6188f20e984d4b48a2bef2cf711bf89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3315549704299220956
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5022709285978700416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62f23e0b2f6c0394f83ef3caa8cc2064, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &86360050246504896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5022709285978700416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12e76fa0941bd214184d8b118e4e655c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2493285270468198622
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5022709285978700416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34c22e40de33a7a47b4fe3c0b369259b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _moveSpeed: 5
-  _rotationSpeed: 500
 --- !u!1 &8596695711596955803
 GameObject:
   m_ObjectHideFlags: 0
@@ -302,6 +246,8 @@ MonoBehaviour:
   _npcController: {fileID: 2368706108583649868}
   _enumIdle: 0
   _enumReacting: 0
+  _moverPrefab: {fileID: 1485025795501695077, guid: b6c94e3d40d0302449d962996ed60522,
+    type: 3}
 --- !u!114 &4549343475173586180
 MonoBehaviour:
   m_ObjectHideFlags: 0

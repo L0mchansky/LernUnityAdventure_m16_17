@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5303431701707566279
+--- !u!1 &3483438345796555049
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3072115092834351059}
-  - component: {fileID: 6109312183395126561}
+  - component: {fileID: 7325726733722217846}
+  - component: {fileID: 1485025795501695077}
+  - component: {fileID: 2920306205167549413}
   m_Layer: 0
-  m_Name: SpawnPoint
+  m_Name: NpcMover
   m_TagString: Untagged
-  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3072115092834351059
+--- !u!4 &7325726733722217846
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5303431701707566279}
+  m_GameObject: {fileID: 3483438345796555049}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,19 +33,30 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6109312183395126561
+--- !u!114 &1485025795501695077
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5303431701707566279}
+  m_GameObject: {fileID: 3483438345796555049}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fce24741e92aa254f8f393260831cbda, type: 3}
+  m_Script: {fileID: 11500000, guid: fe390dfb72ff68647bb95849f4a0aadd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _npcPrefab: {fileID: 5022709285978700416, guid: 72886db718b11444c8b4d07de87ba1eb,
-    type: 3}
-  _enumIdle: 0
-  _enumReacting: 0
+  _moverAttributes: {fileID: 2920306205167549413}
+--- !u!114 &2920306205167549413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3483438345796555049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34c22e40de33a7a47b4fe3c0b369259b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveSpeed: 5
+  _rotationSpeed: 500

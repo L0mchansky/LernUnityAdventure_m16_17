@@ -8,21 +8,21 @@ namespace m16_17
         private float _minDistanceForDetect = 10f;
 
         private DetectorDistance _detectorDistance;
-        public Character _character { private set; get; }
+        public Character Character { private set; get; }
 
         private void Awake()
         {
             _detectorDistance = new DetectorDistance();
 
             GameObject character = GameObject.Find(_characterGameObjectName);
-            _character = character.GetComponent<Character>();
+            Character = character.GetComponent<Character>();
         }
 
         public Character Detect()
         {
-            if (_detectorDistance.IsWithinDistance(transform, _character.transform, _minDistanceForDetect))
+            if (_detectorDistance.IsWithinDistance(transform, Character.transform, _minDistanceForDetect))
             {
-                return _character;
+                return Character;
             }
             return null;
         }

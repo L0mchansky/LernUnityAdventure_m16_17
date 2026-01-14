@@ -5,31 +5,18 @@ namespace m16_17
 {
     public class PatrolAction : MonoBehaviour, IActionOnState
     {
-        private IMover _mover;
-        private Rotater _rotater;
-
-        private MoverAttributes _moverAttributes;
-
         [SerializeField] private List<Transform> _patrolPoints;
+        private Mover _mover;
 
         private float _minDistanceToTarget = 0.05f;
 
         private Queue<Vector3> _targetPositions;
         private Vector3 _currentTarget;
 
-        public void Initialize(List<Transform> patrolPoints)
+        public void Initialize(List<Transform> patrolPoints, Mover mover)
         {
             SetPatrolPoints(patrolPoints);
-
-            GameObject _npc = gameObject.transform.parent.gameObject;
-
-            _rotater = _npc.GetComponent<Rotater>();
-            _moverAttributes = _npc.GetComponent<MoverAttributes>();
-
-            if (_npc.TryGetComponent<IMover>(out IMover mover))
-            {
-                _mover = mover;
-            }
+            _mover = mover;
         }
 
         public void Action()
@@ -47,8 +34,8 @@ namespace m16_17
 
             Vector3 normalizeDirection = direction.normalized;
 
-            _mover.Move(normalizeDirection, _moverAttributes.MoveSpeed);
-            _rotater.Rotate(normalizeDirection, _moverAttributes.RotationSpeed, _moverAttributes.transform);
+            _mover.Move(normalizeDirection);
+            _mover.Rotate(normalizeDirection);
         }
 
         private void SetPatrolPoints(List<Transform> patrolPoints)

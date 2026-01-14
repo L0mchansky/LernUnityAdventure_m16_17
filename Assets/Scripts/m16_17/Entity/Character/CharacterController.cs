@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace m16_17
@@ -7,19 +8,15 @@ namespace m16_17
         private string _horizontalAxisName = "Horizontal";
         private string _verticalAxisName = "Vertical";
 
-        [SerializeField] private MoverAttributes _moverAttributes;
+        [SerializeField] private UnityEngine.CharacterController _characterController;
+        [SerializeField] private Mover _moverPrefab;
 
-        private IMover _mover;
-        [SerializeField] private Rotater _rotater;
-
+        private Mover _mover;
         private float _deadZone = 0.1f;
 
         private void Awake()
         {
-            if (gameObject.TryGetComponent<IMover>(out IMover mover))
-            {
-                _mover = mover;
-            }
+            _mover = CreateMover();
         }
 
         private void Update()
@@ -36,8 +33,24 @@ namespace m16_17
 
             Vector3 normalizedInput = input.normalized;
 
-            _mover.Move(normalizedInput, _moverAttributes.MoveSpeed);
-            _rotater.Rotate(normalizedInput, _moverAttributes.RotationSpeed, _moverAttributes.transform);
+            _mover.Move(normalizedInput);
+            _mover.Rotate(normalizedInput);
+        }
+
+        private Mover CreateMover()
+        {
+            Mover mover = Instantiate(_moverPrefab, transform.position, Quaternion.identity);
+
+            MoverCharacterController moverCharacter = mover.AddComponent<MoverCharacterController>();
+            moverCharacter.Initialize(_characterController);
+
+            Rotater rotater = mover.AddComponent<Rotater>();
+
+            mover.Initialize(moverCharacter, rotater, transform.parent);
+
+            mover.transform.SetParent(transform.parent);
+
+            return mover;
         }
     }
 }
