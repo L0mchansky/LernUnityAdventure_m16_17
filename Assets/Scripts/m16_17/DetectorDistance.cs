@@ -4,7 +4,11 @@ namespace m16_17
 {
     public class DetectorDistance
     {
-        public bool IsWithinDistance(Transform secondPoint, Transform firstPoint, float _minDistanceForDetect)
+        private float _minDistanceForDetect = 10f;
+
+        public DetectorDistance() { }
+
+        public bool IsWithinDistance(Transform secondPoint, Transform firstPoint)
         {
             Vector3 direction = secondPoint.position - firstPoint.position;
 

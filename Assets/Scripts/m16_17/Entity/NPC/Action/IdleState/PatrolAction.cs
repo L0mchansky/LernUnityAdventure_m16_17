@@ -3,20 +3,28 @@ using UnityEngine;
 
 namespace m16_17
 {
-    public class PatrolAction : MonoBehaviour, IActionOnState
+    public class PatrolAction : IActionOnState
     {
-        [SerializeField] private List<Transform> _patrolPoints;
-        private Mover _mover;
+        private List<Transform> _patrolPoints;
+        private Transform _transformNpc;
+
+        private MoverTransform _mover;
+        private Rotater _rotater;
+        private MoverAttributes _moverAttributes;
 
         private float _minDistanceToTarget = 0.05f;
 
         private Queue<Vector3> _targetPositions;
         private Vector3 _currentTarget;
 
-        public void Initialize(List<Transform> patrolPoints, Mover mover)
+
+        public PatrolAction(List<Transform> patrolPoints, Transform transformNpc, MoverTransform mover, Rotater rotater, MoverAttributes moverAttributes)
         {
-            SetPatrolPoints(patrolPoints);
             _mover = mover;
+            _rotater = rotater;
+            _moverAttributes = moverAttributes;
+            _transformNpc = transformNpc;
+            SetPatrolPoints(patrolPoints);
         }
 
         public void Action()
@@ -34,8 +42,8 @@ namespace m16_17
 
             Vector3 normalizeDirection = direction.normalized;
 
-            _mover.Move(normalizeDirection);
-            _mover.Rotate(normalizeDirection);
+            _mover.Move(normalizeDirection, _moverAttributes.MoveSpeed, _transformNpc);
+            _rotater.Rotate(normalizeDirection, _moverAttributes.MoveSpeed, _transformNpc);
         }
 
         private void SetPatrolPoints(List<Transform> patrolPoints)
@@ -50,7 +58,7 @@ namespace m16_17
             SwitchTarget();
         }
 
-        private Vector3 GetDirectionToTargetPoint() => _currentTarget - transform.position;
+        private Vector3 GetDirectionToTargetPoint() => _currentTarget - _transformNpc.position;
 
         private void SwitchTarget()
         {

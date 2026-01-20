@@ -2,42 +2,21 @@
 
 namespace m16_17
 {
-    public class RunAction : MonoBehaviour, IActionOnState
+    public class RunAction : BaseMovementAction
     {
-        private Mover _mover;
-
-        private DetectorCharacter _detectorCharacter;
-        private Character _character;
-
-        public void Initialize(DetectorCharacter detectorCharacter, Mover mover)
+        public RunAction
+            (Transform transformNpc, 
+            MoverTransform mover,
+            Rotater rotater,
+            MoverAttributes moverAttributes,
+            Transform targetTransform)
+            : base(transformNpc, mover, rotater, moverAttributes, targetTransform)
         {
-            _detectorCharacter = detectorCharacter;
-            _mover = mover;
         }
 
-        public void Action()
-        {
-            Debug.Log("Убегаем");
+        protected override string GetActionName() => "Нападаем";
 
-            if (_character != null)
-            {
-                Movement();
-            } 
-            else
-            {
-                _character = _detectorCharacter.Character;
-            }
-        }
-
-        private void Movement()
-        {
-            Vector3 normalizeDirection = GetRunDirection();
-
-            _mover.Move(normalizeDirection);
-            _mover.Rotate(normalizeDirection);
-        }
-
-        private Vector3 GetRunDirection()
+        protected override Vector3 GetRunDirection()
         {
             Vector3 direction = GetDirectionToCharacter();
             direction = direction.normalized;
@@ -45,7 +24,5 @@ namespace m16_17
             direction = direction * -1;
             return direction;
         }
-
-        private Vector3 GetDirectionToCharacter() => _character.transform.position - transform.position;
     }
 }

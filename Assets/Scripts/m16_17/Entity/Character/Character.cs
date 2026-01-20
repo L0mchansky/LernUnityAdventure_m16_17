@@ -2,8 +2,5 @@
 
 namespace m16_17
 {
-    public class Character : MonoBehaviour
-    {
-
-    }
+    public class Character : MonoBehaviour { }
 }

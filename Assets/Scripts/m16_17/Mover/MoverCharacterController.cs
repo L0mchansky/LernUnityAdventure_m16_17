@@ -2,18 +2,11 @@ using UnityEngine;
 
 namespace m16_17
 {
-    public class MoverCharacterController : MonoBehaviour, IMover
+    public class MoverCharacterController : MonoBehaviour
     {
-        UnityEngine.CharacterController _characterController;
-
-        public void Move(Vector3 normalizedDirection, float speed)
+        public void Move(Vector3 normalizedDirection, float speed, UnityEngine.CharacterController _characterController)
         {
             _characterController.Move(normalizedDirection * speed * Time.deltaTime);
-        }
-
-        public void Initialize(UnityEngine.CharacterController characterController)
-        {
-            _characterController = characterController;
         }
     }
 }

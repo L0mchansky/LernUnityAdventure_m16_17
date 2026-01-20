@@ -2,17 +2,24 @@
 
 namespace m16_17
 {
-    public class WalkingAction : MonoBehaviour, IActionOnState
+    public class WalkingAction : IActionOnState
     {
-        private Mover _mover;
+        private Transform _transformNpc;
+
+        private MoverTransform _mover;
+        private Rotater _rotater;
+        private MoverAttributes _moverAttributes;
 
         private float _timer = 0f;
         private Vector3 _currentDirection;
 
-        public void Initialize(Mover mover)
+        public WalkingAction(Transform transformNpc, MoverTransform mover, Rotater rotater, MoverAttributes moverAttributes)
         {
-            _currentDirection = GetRandomDirection();
             _mover = mover;
+            _rotater = rotater;
+            _moverAttributes = moverAttributes;
+            _transformNpc = transformNpc;
+            _currentDirection = GetRandomDirection();
         }
 
         public void Action()
@@ -33,8 +40,8 @@ namespace m16_17
 
             Vector3 normalizeDirection = _currentDirection.normalized;
 
-            _mover.Move(normalizeDirection);
-            _mover.Rotate(normalizeDirection);
+            _mover.Move(normalizeDirection, _moverAttributes.MoveSpeed, _transformNpc);
+            _rotater.Rotate(normalizeDirection, _moverAttributes.MoveSpeed, _transformNpc);
         }
 
         private Vector3 GetRandomDirection()

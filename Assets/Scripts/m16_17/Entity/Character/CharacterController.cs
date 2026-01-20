@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace m16_17
@@ -9,15 +8,12 @@ namespace m16_17
         private string _verticalAxisName = "Vertical";
 
         [SerializeField] private UnityEngine.CharacterController _characterController;
-        [SerializeField] private Mover _moverPrefab;
 
-        private Mover _mover;
+        [SerializeField] private MoverAttributes _moverAttributes;
+        [SerializeField] private Rotater _rotater;
+        [SerializeField] private MoverCharacterController _mover;
+
         private float _deadZone = 0.1f;
-
-        private void Awake()
-        {
-            _mover = CreateMover();
-        }
 
         private void Update()
         {
@@ -33,24 +29,8 @@ namespace m16_17
 
             Vector3 normalizedInput = input.normalized;
 
-            _mover.Move(normalizedInput);
-            _mover.Rotate(normalizedInput);
-        }
-
-        private Mover CreateMover()
-        {
-            Mover mover = Instantiate(_moverPrefab, transform.position, Quaternion.identity);
-
-            MoverCharacterController moverCharacter = mover.AddComponent<MoverCharacterController>();
-            moverCharacter.Initialize(_characterController);
-
-            Rotater rotater = mover.AddComponent<Rotater>();
-
-            mover.Initialize(moverCharacter, rotater, transform.parent);
-
-            mover.transform.SetParent(transform.parent);
-
-            return mover;
+            _mover.Move(normalizedInput, _moverAttributes.MoveSpeed, _characterController);
+            _rotater.Rotate(normalizedInput, _moverAttributes.RotationSpeed, transform);
         }
     }
 }

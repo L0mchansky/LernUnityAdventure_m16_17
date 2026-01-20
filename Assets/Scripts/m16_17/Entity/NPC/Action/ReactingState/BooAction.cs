@@ -2,12 +2,12 @@
 
 namespace m16_17
 {
-    public class BooAction : MonoBehaviour, IActionOnState
+    public class BooAction : IActionOnState
     {
         private Transform _particleSystem;
-        private Npc _npc;
+        private GameObject _npc;
 
-        public void Initialize(Npc npc, Transform particleSystemTransform)
+        public BooAction(GameObject npc, Transform particleSystemTransform)
         {
             _npc = npc;
             _particleSystem = particleSystemTransform;
@@ -22,7 +22,7 @@ namespace m16_17
         public void Die()
         {
             PlayParticle(_npc.transform);
-            Destroy(_npc.gameObject);
+            Remover.RemoveGameobject(_npc);
         }
 
         public void PlayParticle(Transform npcTransform)
