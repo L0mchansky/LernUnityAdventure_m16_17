@@ -7,14 +7,14 @@ public class Spawner : MonoBehaviour
     [SerializeField] private GameObject _npcPrefab;
     [SerializeField] private Character _character;
     [SerializeField] private List<Transform> _patrolPoints;
-    [SerializeField] private List<GameObject> _spawnPointsPrefab;
+    [SerializeField] private List<SpawnPoint> _spawnPointsPrefab;
     [SerializeField] private ParticleSystem _particleSystemPrefab;
 
     private float _shiftPosition = 0.5f;
 
     private void Start()
     {
-        foreach (GameObject spawnPointGameObject in _spawnPointsPrefab)
+        foreach (SpawnPoint spawnPointGameObject in _spawnPointsPrefab)
         {
             SpawnPoint spawnPoint = spawnPointGameObject.GetComponent<SpawnPoint>();
 
